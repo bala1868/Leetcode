@@ -1,0 +1,57 @@
+class Solution {
+    static class Edge{
+        int sr;
+        int nb;
+        Edge(int sr,int nb)
+        {
+            this.sr=sr;
+            this.nb=nb;
+        }
+
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<Edge>[] gr=new ArrayList[numCourses];
+        for(int i=0;i<numCourses;i++)
+        {
+            gr[i]=new ArrayList<>();
+        }
+        for(int[] i:prerequisites)
+        {
+            int co=i[0];
+            int pr=i[1];
+            gr[pr].add(new Edge(pr,co));
+        }
+        boolean[] vis=new boolean[numCourses];
+        boolean[] curentVis=new boolean[numCourses];
+        for(int i=0;i<numCourses;i++)
+        {
+            if(!vis[i])
+            {
+                if(cycle(gr,vis,curentVis,i)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private static boolean cycle(List<Edge>[] gr,boolean[] vis,boolean cvis[],int node)
+    {
+        if(cvis[node])
+        {
+            return true;
+        }
+        if(vis[node])
+        return false;
+        cvis[node]=true;
+        for(Edge e:gr[node])
+        {
+            if(cycle(gr,vis,cvis,e.nb))
+            {
+                return true;
+            }
+        }
+        vis[node]=true;
+        cvis[node]=false;
+        return false;
+    }
+}
