@@ -1,0 +1,19 @@
+11. Container With Most Water
+class Solution {
+    public int maxArea(int[] ar) {
+        int l=0,r=ar.length-1;
+        int area=0;
+        while(l<r)
+        {
+            int t=Math.min(ar[l],ar[r]);
+            int w=r-l;
+            area=Math.max(area,(t*w));
+            if(ar[l]>ar[r]){
+                r--;
+            }
+            else
+              l++;
+        }
+        return  area;
+    }
+}
