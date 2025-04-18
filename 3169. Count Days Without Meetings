@@ -1,0 +1,20 @@
+3169. Count Days Without Meetings
+
+class Solution {
+    public int countDays(int days, int[][] ar) {
+       Arrays.sort(ar,(a,b)->a[0]-b[0]);
+       int day=0,end=0;
+       for(int i[]:ar)
+       {
+        int cs=i[0];
+        int ce=i[1];
+        if(cs>end)
+           day+=(cs-end-1);
+        
+          end=Math.max(end,ce);
+       }
+       if(end<days)
+          day+=(days-end);
+          return day;
+    }
+}
