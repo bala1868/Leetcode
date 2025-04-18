@@ -1,0 +1,70 @@
+860. Lemonade Change
+
+
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        return pass(bills,0,0,0);
+    }
+    private static boolean pass(int[] ar,int i,int f,int t)
+    {
+        if(i==ar.length)
+         return true;
+        if(ar[i]==5)
+          return pass(ar,i+1,f+1,t);
+        else if(ar[i]==10)
+          {
+            if(f>=1)
+                return pass(ar,i+1,f-1,t+1);
+            else
+            return false;
+          }
+          else
+          {
+            if(f>=1&&t>=1)
+              return pass(ar,i+1,f-1,t-1);
+            else if(f>=3)
+              return pass(ar,i+1,f-3,t);
+            else
+             return false;
+          }
+    }
+}
+
+greedy:
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int five=0;
+        int ten=0;
+
+        for(int i:bills)
+        {
+            if(i==5)
+             five++;
+           else if(i==10)
+           {
+            if(five<1)
+              return false;
+            else
+            {
+                five--;
+            }
+            ten++;
+           }
+           else
+           {
+            if(five>=1&&ten>=1)
+            {
+                ten--;
+                five--;
+            }
+            else if(five>=3)
+            {
+                five-=3;
+            }
+            else
+             return false;
+           }
+        }
+        return true;
+    }
+}
