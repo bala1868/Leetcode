@@ -1,0 +1,52 @@
+417. Pacific Atlantic Water Flow
+
+class Solution {
+    static boolean[][] pac,atlan;
+    static List<List<Integer>> al;
+
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        al=new ArrayList<>();
+    if(heights==null||heights.length==0)
+    return al;
+    int m=heights.length;
+    int n=heights[0].length;
+    atlan=new boolean[m][n];
+    pac=new boolean[m][n];
+    for(int i=0;i<m;i++)
+    {
+        dfs(heights,pac,i,0);
+        dfs(heights,atlan,i,n-1);
+
+    }
+    for(int i=0;i<n;i++)
+    {
+        dfs(heights,pac,0,i);
+        dfs(heights,atlan,m-1,i);
+
+    }
+       for(int i=0;i<m;i++)
+    {
+         for(int j=0;j<n;j++)
+    {
+        if(pac[i][j]&&atlan[i][j])
+        {
+            al.add(Arrays.asList(i,j));
+        }}}
+    return al;
+    }
+    public static void dfs(int[][] ar,boolean[][] vis,int i,int j)
+    {    
+        if (i < 0 || j < 0 || i >= ar.length || j >= ar[0].length || vis[i][j]) {
+            return;
+        }
+       
+        vis[i][j]=true;
+        
+         if(i+1<ar.length&&ar[i+1][j]>=ar[i][j]) dfs(ar,vis,i+1,j);
+          if(i-1>=0&&ar[i-1][j]>=ar[i][j])dfs(ar,vis,i-1,j);
+          if(j+1<ar[0].length&&ar[i][j+1]>=ar[i][j])dfs(ar,vis,i,j+1);
+         if(j-1>=0&&ar[i][j-1]>=ar[i][j]) dfs(ar,vis,i,j-1);
+          
+          
+    }
+}
