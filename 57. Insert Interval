@@ -1,0 +1,27 @@
+57. Insert Interval
+
+class Solution {
+    public int[][] insert(int[][] ar, int[] temp) {
+        Arrays.sort(ar,(a,b)->a[1]-b[1]);
+        ArrayList<int[]> al=new ArrayList<>();
+        for(int i=0;i<ar.length;i++)
+        {
+           if(temp[1]<ar[i][0])
+           {
+            al.add(temp);
+            temp=ar[i];
+           }
+           else if(ar[i][1]<temp[0])
+           {
+            al.add(ar[i]);
+           }
+           else
+           {
+            temp[0]=Math.min(temp[0],ar[i][0]);
+            temp[1]=Math.max(temp[1],ar[i][1]);
+           }
+        }
+        al.add(temp);
+       return al.toArray(new int[al.size()][]);
+    }
+}
