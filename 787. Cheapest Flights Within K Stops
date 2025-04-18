@@ -1,0 +1,21 @@
+787. Cheapest Flights Within K Stops
+
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] cure = new int[n];
+        int[] prev = new int[n];
+        Arrays.fill(cure, 0x3f3f3f3f);
+        cure[src] = 0;
+        for (int i = 0; i <= k; i++) {
+            System.arraycopy(cure, 0, prev, 0, n);
+            for (int[] fl : flights) {
+                int from = fl[0];
+                int dis = fl[1];
+                int cost = fl[2];
+                if (cure[from] != 0x3f3f3f3f)
+                    cure[dis] = Math.min(cure[dis], prev[from] + cost);
+            }
+        }
+        return cure[dst] == 0x3f3f3f3f ? -1 : cure[dst];
+    }
+}
