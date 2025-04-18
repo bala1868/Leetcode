@@ -1,0 +1,20 @@
+2140. Solving Questions With Brainpower
+
+class Solution {
+    public long mostPoints(int[][] ar) {
+        long[] dp=new long[ar.length];
+        for(int i=ar.length-1;i>=0;i--)
+        {
+            int in=ar[i][1]+i+1;
+            if(in<ar.length)
+            {
+                dp[i]=dp[in]+ar[i][0];
+            }
+            else
+             dp[i]=ar[i][0];
+            if(i<ar.length-1)
+              dp[i]=Math.max(dp[i],dp[i+1]);
+        }
+        return dp[0];
+    }
+}
