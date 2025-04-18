@@ -1,0 +1,42 @@
+85. Maximal Rectangle
+
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        int max=0;
+        int[] he=new int[matrix[0].length];
+        for(int i=0;i<matrix.length;i++)
+        {
+            for(int j=0;j<matrix[0].length;j++)
+            {
+                if(matrix[i][j]=='1')
+                  he[j]+=1;
+                else
+                he[j]=0;
+            }
+              max=Math.max(pass(he),max);
+        }
+        return max;
+    }
+     private static int pass(int[] ar)
+    {
+        int n=ar.length,max=0;
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<n;i++)
+        {
+             while(!st.isEmpty()&&ar[i]<ar[st.peek()])
+             {
+                int x=st.pop();
+                int wi=st.isEmpty()?i:i-st.peek()-1;
+                max=Math.max(max,wi*ar[x]);
+             }
+             st.push(i);
+        }
+        while(!st.isEmpty())
+        {
+            int x=st.pop();
+            int wi=st.isEmpty()?n:n-st.peek()-1;
+            max=Math.max(max,wi*ar[x]);
+        }
+        return max;
+    }
+}
