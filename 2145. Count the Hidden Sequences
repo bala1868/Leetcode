@@ -1,0 +1,19 @@
+2145. Count the Hidden Sequences
+
+
+class Solution {
+    public int numberOfArrays(int[] ar, int lower, int upper) {
+        long max=0,min=0,ans=0;
+        for(int i:ar)
+        {
+            ans+=i;
+              
+            max=Math.max(max,ans);
+            min=Math.min(min,ans);
+        }
+      ///  System.out.println(max+" "+min+" "+ans);
+        long anss=(upper-lower)-(max-min)+1;
+       
+        return (int)Math.max(0,anss);
+    }
+}
