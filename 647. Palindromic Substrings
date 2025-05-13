@@ -1,0 +1,25 @@
+647. Palindromic Substrings
+
+
+class Solution {
+    public int countSubstrings(String a) {
+       int odd=0,even=0;
+       for(int i=0;i<a.length();i++)
+       {
+        odd+=check(a,i,i);
+        even+=check(a,i,i+1);                                    //abc
+                                                                                
+       }
+       return odd+even;
+    }
+    private static int check(String a,int l,int r)
+    {
+        int c=0;
+        while(l<=r&&l>=0&&r<a.length()&&a.charAt(l)==a.charAt(r)){
+           c++;
+           l--;
+           r++;}
+        return c;
+    }}
+        
+      
